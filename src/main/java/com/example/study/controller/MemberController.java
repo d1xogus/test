@@ -4,12 +4,11 @@ import com.example.study.dto.MemberDTO;
 import com.example.study.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -40,5 +39,19 @@ public class MemberController {
         } else{
             return "login";
         }
+    }
+    @GetMapping("/member")
+    public String findAll(Model model){
+        List<MemberDTO> memberDTOList = memberService.findAll();
+        // 어떤 html로 가져갈 데이터가 있다면 model 사용
+        model.addAttribute("memberList", memberDTOList);
+        return "List";
+    }
+
+    @GetMapping("/member/{id}")
+    public String findById(@PathVariable Long id, Model model){
+        MemberDTO memberDTO = memberService.findById(id);
+        model.addAttribute("member", memberDTO);
+        return "detail";
     }
 }

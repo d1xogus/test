@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -38,6 +40,29 @@ public class MemberService {
         }
         else   {
             //조회 결과가 없다
+            return null;
+        }
+    }
+
+    public List<MemberDTO> findAll() {
+        List<MemberEntity> memberEntityList = memberRepository.findAll();
+        List<MemberDTO> memberDTOList = new ArrayList<>();
+        for (MemberEntity memberEntity: memberEntityList) {
+            memberDTOList.add(MemberDTO.toMemberDTO(memberEntity));
+//            MemberDTO memberDTO = MemberDTO.toMemberDTO(memberEntity);
+//            memberDTOList.add(memberDTO);
+        }
+        return memberDTOList;
+    }
+
+    public MemberDTO findById(Long id) {
+        Optional<MemberEntity> optionalMemberEntity = memberRepository.findById(id);
+        if (optionalMemberEntity.isPresent()){
+//            MemberEntity memberEntity = optionalMemberEntity.get();
+//            MemberDTO memberDTO = MemberDTO.toMemberDTO(memberEntity);
+//            return memberDTO;
+            return MemberDTO.toMemberDTO(optionalMemberEntity.get());
+        } else{
             return null;
         }
     }
