@@ -8,7 +8,7 @@ spring:
     username: root
     password: 01080823424
   thymeleaf:
-    cache: false
+    cache: falsecd
 
   jpa:
     database: mysql
