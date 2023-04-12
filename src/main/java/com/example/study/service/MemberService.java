@@ -22,6 +22,8 @@ public class MemberService {
         memberRepository.save(memberEntity);
         //jpa가 제공하는 repository의 save를 사용함
     }
+// autowired로 
+
 
     public MemberDTO login(MemberDTO memberDTO) {
         Optional<MemberEntity> byMemberEmail = memberRepository.findByMemberEmail(memberDTO.getMemberEmail());
@@ -79,5 +81,9 @@ public class MemberService {
 
     public void update(MemberDTO memberDTO) {
         memberRepository.save(MemberEntity.toupdateMemberEntity(memberDTO));
+    }
+
+    public void deleteById(Long id) {
+        memberRepository.deleteById(id);
     }
 }
