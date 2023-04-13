@@ -6,7 +6,6 @@ import com.example.study.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -85,5 +84,14 @@ public class MemberService {
 
     public void deleteById(Long id) {
         memberRepository.deleteById(id);
+    }
+
+    public String emailCheck(String memberEmail) {
+        Optional <MemberEntity> byMemberEmail = memberRepository.findByMemberEmail(memberEmail);
+        if (byMemberEmail.isPresent()) {
+            return null;
+        } else{
+            return "ok";
+        }
     }
 }
